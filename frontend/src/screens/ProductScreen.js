@@ -1,19 +1,31 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap'
 import Rating from '../components/Rating'
-import products from '../products'
+import axios from 'axios'
+
 
 const ProductScreen = ({ match }) => {
+  // --Fetching data from the frontend file
   // the screen is actualy for showing, so we can use the components here, while we only pass the props in matching
 
   // we have the array of the products..
   // so we loop through, and we want to match with the id on the params
   // we will need props.match or using destructure so we'll use only match
-
-
-  const product = products.find(p => p._id === match.params.id )
+  // const product = products.find(p => p._id === match.params.id )
   
+
+  const [ product , setProduct ] = useState([]);
+
+  useEffect(() => {
+    const fetchProduct = async() =>{
+      const { data } = await axios.get(`/api/products/${match.params.id}`);
+
+      setProduct(data);
+    }
+
+    fetchProduct();
+  }, [])
 
   return (
     <div>
