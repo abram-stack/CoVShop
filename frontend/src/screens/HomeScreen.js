@@ -16,7 +16,7 @@ const HomeScreen = () => {
         ))}
       </Row>
     </>
-  )
+  ) 
 }
 
 export default HomeScreen
