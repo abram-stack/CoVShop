@@ -7,7 +7,7 @@ import { listProductDetails } from '../actions/productActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 
-const ProductScreen = ({ match }) => {
+const ProductScreen = ({ history, match }) => {
   // --Fetching data from the frontend file
   // the screen is actualy for showing, so we can use the components here, while we only pass the props in matching
 
@@ -26,7 +26,9 @@ const ProductScreen = ({ match }) => {
     dispatch(listProductDetails(match.params.id));
   }, [dispatch, match])
 
-
+  const addToCartHandler = () => {
+    history.push(`/cart/${match.params.id}?qty=${qty}`);
+  }
   
   return (
     <div>
@@ -93,7 +95,7 @@ const ProductScreen = ({ match }) => {
               )}
 
               <ListGroup.Item>
-                <Button className='btn-block' type='button' disabled={product.countInStock === 0}>
+                <Button className='btn-block' type='button' onClick={addToCartHandler} disabled={product.countInStock === 0}>
                   Add To Cart
                 </Button>
               </ListGroup.Item>
